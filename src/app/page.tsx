@@ -1,7 +1,11 @@
+import AppShell from "@/components/layout/appShell";
+import MainPanel from "@/components/layout/mainPanel";
+import Sidebar from "@/components/layout/sidebar";
+
 export default function Home() {
   return (
-    <main className="h-screen flex flex-col justify-center items-center">
-      <h1 className="text-3xl font-bold">Project init</h1>
-    </main>
+    <AppShell sidebar={<Sidebar />}>
+      <MainPanel />
+    </AppShell>
   );
 }

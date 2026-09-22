@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mini Workspace Expolorer",
-  description: "Mini Workspace Expolorer",
+  title: "Mini Workspace Explorer",
+  description: "Browser-based file manager for folders and text files.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
