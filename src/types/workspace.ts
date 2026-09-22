@@ -23,3 +23,10 @@ export interface FileItem extends BaseItem {
 export type WorkspaceItem = FolderItem | FileItem;
 
 export type ItemsMap = Record<string, WorkspaceItem>;
+
+export interface PersistedWorkspace {
+  items: ItemsMap;
+  selectedFolderId: string;
+  openFileId: string | null;
+  expandedIds: string[];
+}

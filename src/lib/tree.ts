@@ -76,6 +76,20 @@ export function validateName(name: string): string | null {
   return null;
 }
 
+export function getNameError(
+  items: ItemsMap,
+  parentId: string,
+  name: string,
+  excludeId?: string,
+): string | null {
+  return (
+    validateName(name) ??
+    (isNameTaken(items, parentId, name, excludeId)
+      ? `"${name.trim()}" already exists in this folder.`
+      : null)
+  );
+}
+
 export function searchItems(items: ItemsMap, query: string): WorkspaceItem[] {
   const q = normalize(query);
   if (!q) return [];

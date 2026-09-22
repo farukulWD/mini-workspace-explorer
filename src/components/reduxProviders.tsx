@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Provider } from "react-redux";
 import { makeStore } from "@/redux/store";
+import { setupPersistence } from "@/redux/persistence";
+import HydrationGate from "./hydrationGate";
 
 export default function ReduxProviders({
   children,
@@ -11,5 +13,11 @@ export default function ReduxProviders({
 }) {
   const [store] = useState(makeStore);
 
-  return <Provider store={store}>{children}</Provider>;
+  useEffect(() => setupPersistence(store), [store]);
+
+  return (
+    <Provider store={store}>
+      <HydrationGate>{children}</HydrationGate>
+    </Provider>
+  );
 }
