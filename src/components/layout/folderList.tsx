@@ -68,7 +68,7 @@ export default function FolderList() {
     if (!type) return;
     const action = dispatch(createItem({ parentId: folderId, name, type }));
     setDraftType(null);
-    if (type === "file") dispatch(openFile(action.payload.id));
+    if (type === "file") guard(() => dispatch(openFile(action.payload.id)));
   };
 
   const createButtons = (
