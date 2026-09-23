@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FilePlus,
   FileText,
@@ -54,6 +54,17 @@ export default function FolderList() {
     setRenamingId(null);
     setDeletingId(null);
   }
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (!event.altKey || !(event.metaKey || event.ctrlKey)) return;
+      if (event.code !== "KeyN") return;
+      event.preventDefault();
+      setDraftType("file");
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
 
   const activate = (item: WorkspaceItem) => {
     if (item.type === "folder") {

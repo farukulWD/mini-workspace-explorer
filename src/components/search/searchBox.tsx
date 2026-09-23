@@ -24,7 +24,20 @@ export default function SearchBox() {
   const [debounced, setDebounced] = useState("");
   const [active, setActive] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const listId = useId();
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.altKey || event.shiftKey) return;
+      if (!(event.metaKey || event.ctrlKey) || event.code !== "KeyK") return;
+      event.preventDefault();
+      inputRef.current?.focus();
+      inputRef.current?.select();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => setDebounced(query), DEBOUNCE_MS);
@@ -86,6 +99,7 @@ export default function SearchBox() {
       <div className="flex items-center gap-1 rounded-md border border-border bg-background pr-1 pl-2 focus-within:outline-2 focus-within:outline-accent">
         <Search aria-hidden className="size-4 shrink-0 text-muted" />
         <input
+          ref={inputRef}
           role="combobox"
           aria-expanded={open}
           aria-controls={listId}
