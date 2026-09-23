@@ -4,6 +4,7 @@ import { FileText, X } from "lucide-react";
 import FileEditor from "@/components/editor/fileEditor";
 import { useUnsavedGuard } from "@/components/editor/unsavedGuard";
 import Breadcrumb from "@/components/layout/breadcrumb";
+import EmptyEditor from "@/components/layout/emptyEditor";
 import FolderActions from "@/components/layout/folderActions";
 import FolderList from "@/components/layout/folderList";
 import IconButton from "@/components/ui/iconButton";
@@ -35,16 +36,14 @@ export default function MainPanel() {
       <div className="flex min-h-0 flex-1">
         <section
           aria-label="Folder contents"
-          className={`@container min-w-0 overflow-y-auto p-4 ${
-            file
-              ? "max-lg:hidden lg:w-80 lg:shrink-0 lg:border-r lg:border-border"
-              : "flex-1"
+          className={`@container min-w-0 overflow-y-auto p-4 lg:w-80 lg:shrink-0 lg:border-r lg:border-border ${
+            file ? "max-lg:hidden" : "max-lg:flex-1"
           }`}
         >
           <FolderList />
         </section>
 
-        {file && (
+        {file ? (
           <section
             aria-label={`Editor: ${file.name}`}
             className="flex min-w-0 flex-1 flex-col"
@@ -63,6 +62,13 @@ export default function MainPanel() {
               </IconButton>
             </div>
             <FileEditor key={file.id} file={file} />
+          </section>
+        ) : (
+          <section
+            aria-label="Editor"
+            className="hidden min-w-0 flex-1 lg:flex"
+          >
+            <EmptyEditor />
           </section>
         )}
       </div>

@@ -53,23 +53,26 @@ export default function AppShell({
           inert={open}
           className="flex h-12 shrink-0 items-center gap-2 border-b border-border px-3"
         >
-          <IconButton
-            ref={menuButtonRef}
-            label="Open sidebar"
-            aria-expanded={open}
-            aria-controls="sidebar"
-            className="md:hidden"
-            onClick={() => setOpen(true)}
-          >
-            <Menu className="size-5" aria-hidden />
-          </IconButton>
-          <FolderTree className="size-5 shrink-0 text-accent" aria-hidden />
-          <span className="truncate text-sm font-semibold">
-            Workspace Explorer
-          </span>
-          <div className="ml-auto flex min-w-0 flex-1 justify-end">
+          <div className="flex min-w-0 shrink items-center gap-2 md:flex-1">
+            <IconButton
+              ref={menuButtonRef}
+              label="Open sidebar"
+              aria-expanded={open}
+              aria-controls="sidebar"
+              className="md:hidden"
+              onClick={() => setOpen(true)}
+            >
+              <Menu className="size-5" aria-hidden />
+            </IconButton>
+            <FolderTree className="size-5 shrink-0 text-accent" aria-hidden />
+            <span className="truncate text-sm font-semibold">
+              Workspace Explorer
+            </span>
+          </div>
+          <div className="flex min-w-0 flex-1 justify-end md:w-80 md:flex-initial md:justify-center">
             {topBar}
           </div>
+          <div aria-hidden className="hidden min-w-0 md:block md:flex-1" />
         </header>
 
         <div className="relative flex min-h-0 flex-1">
