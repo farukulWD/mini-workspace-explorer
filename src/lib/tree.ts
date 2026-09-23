@@ -18,6 +18,40 @@ export function getChildren(items: ItemsMap, parentId: string): WorkspaceItem[] 
     .sort(compareItems);
 }
 
+export function getChildrenIndex(
+  items: ItemsMap,
+): Map<string, WorkspaceItem[]> {
+  const index = new Map<string, WorkspaceItem[]>();
+  for (const item of Object.values(items)) {
+    if (item.parentId === null) continue;
+    const siblings = index.get(item.parentId);
+    if (siblings) siblings.push(item);
+    else index.set(item.parentId, [item]);
+  }
+  for (const siblings of index.values()) siblings.sort(compareItems);
+  return index;
+}
+
+export function getVisibleIds(
+  index: Map<string, WorkspaceItem[]>,
+  expanded: ReadonlySet<string>,
+  rootId: string = ROOT_ID,
+): string[] {
+  const result: string[] = [];
+  const seen = new Set<string>();
+  const stack = [rootId];
+  while (stack.length > 0) {
+    const id = stack.pop()!;
+    if (seen.has(id)) continue;
+    seen.add(id);
+    result.push(id);
+    if (!expanded.has(id)) continue;
+    const children = index.get(id) ?? [];
+    for (let i = children.length - 1; i >= 0; i--) stack.push(children[i].id);
+  }
+  return result;
+}
+
 export function getPath(items: ItemsMap, id: string): WorkspaceItem[] {
   const path: WorkspaceItem[] = [];
   const seen = new Set<string>();

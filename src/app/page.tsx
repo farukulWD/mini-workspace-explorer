@@ -1,10 +1,10 @@
 import AppShell from "@/components/layout/appShell";
 import MainPanel from "@/components/layout/mainPanel";
-import Sidebar from "@/components/layout/sidebar";
+import WorkspaceTree from "@/components/tree/workspaceTree";
 
 export default function Home() {
   return (
-    <AppShell sidebar={<Sidebar />}>
+    <AppShell sidebar={<WorkspaceTree />}>
       <MainPanel />
     </AppShell>
   );

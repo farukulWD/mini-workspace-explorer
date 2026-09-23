@@ -1,6 +1,16 @@
-import { createSlice, nanoid, type PayloadAction } from "@reduxjs/toolkit";
+import {
+  createSelector,
+  createSlice,
+  nanoid,
+  type PayloadAction,
+} from "@reduxjs/toolkit";
 import { createSeedItems } from "@/lib/seed";
-import { getDescendantIds, getNameError, getPath } from "@/lib/tree";
+import {
+  getChildrenIndex,
+  getDescendantIds,
+  getNameError,
+  getPath,
+} from "@/lib/tree";
 import {
   ROOT_ID,
   type ItemType,
@@ -130,6 +140,7 @@ const workspaceSlice = createSlice({
 
       state.selectedFolderId = id;
       expandAncestors(state, id);
+      expand(state, id);
     },
 
     openFile(state, action: PayloadAction<string>) {
@@ -184,5 +195,10 @@ export const {
   selectExpandedIds,
   selectHydrated,
 } = workspaceSlice.selectors;
+
+export const selectChildrenIndex = createSelector(
+  [selectItems],
+  getChildrenIndex,
+);
 
 export default workspaceSlice.reducer;
