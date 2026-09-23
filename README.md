@@ -2,7 +2,7 @@
 
 A browser-based file explorer: nested folders and text files with create, rename, delete, search, and an inline editor. Everything is stored in the browser — no backend.
 
-**Live demo:** _TODO — add Vercel URL after deploy._
+**Live demo:** [mini-workspace-explorer-psi.vercel.app](https://mini-workspace-explorer-psi.vercel.app/)
 
 ## Tech stack
 
