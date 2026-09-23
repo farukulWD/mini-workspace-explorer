@@ -201,4 +201,9 @@ export const selectChildrenIndex = createSelector(
   getChildrenIndex,
 );
 
+export const selectBreadcrumb = createSelector(
+  [selectItems, selectSelectedFolderId],
+  getPath,
+);
+
 export default workspaceSlice.reducer;
