@@ -1,6 +1,8 @@
 "use client";
 
 import { FileText, X } from "lucide-react";
+import FileEditor from "@/components/editor/fileEditor";
+import { useUnsavedGuard } from "@/components/editor/unsavedGuard";
 import Breadcrumb from "@/components/layout/breadcrumb";
 import FolderList from "@/components/layout/folderList";
 import IconButton from "@/components/ui/iconButton";
@@ -13,6 +15,7 @@ import {
 
 export default function MainPanel() {
   const dispatch = useAppDispatch();
+  const { guard } = useUnsavedGuard();
   const items = useAppSelector(selectItems);
   const openFileId = useAppSelector(selectOpenFileId);
 
@@ -51,16 +54,12 @@ export default function MainPanel() {
               <IconButton
                 label="Close file"
                 className="ml-auto"
-                onClick={() => dispatch(closeFile())}
+                onClick={() => guard(() => dispatch(closeFile()))}
               >
                 <X className="size-4" aria-hidden />
               </IconButton>
             </div>
-            <div className="min-h-0 flex-1 overflow-y-auto p-4">
-              <pre className="font-mono text-sm whitespace-pre-wrap">
-                {file.content}
-              </pre>
-            </div>
+            <FileEditor key={file.id} file={file} />
           </section>
         )}
       </div>

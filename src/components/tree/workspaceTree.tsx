@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { useUnsavedGuard } from "@/components/editor/unsavedGuard";
 import { useSidebar } from "@/components/layout/sidebarContext";
 import { TreeContext } from "@/components/tree/treeContext";
 import TreeNode from "@/components/tree/treeNode";
@@ -20,6 +21,7 @@ import { ROOT_ID, type WorkspaceItem } from "@/types/workspace";
 export default function WorkspaceTree() {
   const dispatch = useAppDispatch();
   const { closeSidebar } = useSidebar();
+  const { guard } = useUnsavedGuard();
   const items = useAppSelector(selectItems);
   const index = useAppSelector(selectChildrenIndex);
   const expandedIds = useAppSelector(selectExpandedIds);
@@ -37,10 +39,15 @@ export default function WorkspaceTree() {
         : ROOT_ID;
 
   const activate = (item: WorkspaceItem) => {
-    dispatch(
-      item.type === "folder" ? selectFolder(item.id) : openFile(item.id),
-    );
-    closeSidebar();
+    if (item.type === "folder") {
+      dispatch(selectFolder(item.id));
+      closeSidebar();
+      return;
+    }
+    guard(() => {
+      dispatch(openFile(item.id));
+      closeSidebar();
+    });
   };
 
   const focusRow = (id: string | null | undefined) => {
