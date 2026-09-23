@@ -92,7 +92,7 @@ export default function AppShell({
           >
             <div className="flex h-10 shrink-0 items-center justify-between px-3">
               <span className="text-xs font-medium uppercase tracking-wide text-muted">
-                Folders
+                Explorer
               </span>
               <IconButton
                 ref={closeButtonRef}
