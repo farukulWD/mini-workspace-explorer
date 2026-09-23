@@ -2,25 +2,22 @@
 
 import { FileText, X } from "lucide-react";
 import Breadcrumb from "@/components/layout/breadcrumb";
+import FolderList from "@/components/layout/folderList";
 import IconButton from "@/components/ui/iconButton";
-import { getChildren } from "@/lib/tree";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import {
   closeFile,
   selectItems,
   selectOpenFileId,
-  selectSelectedFolderId,
 } from "@/redux/features/workspaceSlice";
 
 export default function MainPanel() {
   const dispatch = useAppDispatch();
   const items = useAppSelector(selectItems);
-  const folderId = useAppSelector(selectSelectedFolderId);
   const openFileId = useAppSelector(selectOpenFileId);
 
   const openItem = openFileId ? items[openFileId] : undefined;
   const file = openItem?.type === "file" ? openItem : null;
-  const childCount = getChildren(items, folderId).length;
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
@@ -32,15 +29,13 @@ export default function MainPanel() {
       <div className="flex min-h-0 flex-1">
         <section
           aria-label="Folder contents"
-          className={`min-w-0 overflow-y-auto p-4 ${
+          className={`@container min-w-0 overflow-y-auto p-4 ${
             file
               ? "max-lg:hidden lg:w-80 lg:shrink-0 lg:border-r lg:border-border"
               : "flex-1"
           }`}
         >
-          <p className="text-sm text-muted">
-            {childCount} {childCount === 1 ? "item" : "items"}
-          </p>
+          <FolderList />
         </section>
 
         {file && (
