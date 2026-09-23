@@ -1,6 +1,7 @@
 "use client";
 
 import { FileText, X } from "lucide-react";
+import Breadcrumb from "@/components/layout/breadcrumb";
 import IconButton from "@/components/ui/iconButton";
 import { getChildren } from "@/lib/tree";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -17,7 +18,6 @@ export default function MainPanel() {
   const folderId = useAppSelector(selectSelectedFolderId);
   const openFileId = useAppSelector(selectOpenFileId);
 
-  const folder = items[folderId];
   const openItem = openFileId ? items[openFileId] : undefined;
   const file = openItem?.type === "file" ? openItem : null;
   const childCount = getChildren(items, folderId).length;
@@ -25,7 +25,7 @@ export default function MainPanel() {
   return (
     <div className="flex min-h-0 flex-1 flex-col">
       <div className="flex min-h-12 shrink-0 flex-wrap items-center gap-2 border-b border-border px-4 py-2">
-        <h1 className="min-w-0 truncate text-sm font-medium">{folder?.name}</h1>
+        <Breadcrumb />
         <div className="ml-auto flex items-center gap-2" />
       </div>
 
