@@ -4,6 +4,7 @@ import { FileText, X } from "lucide-react";
 import FileEditor from "@/components/editor/fileEditor";
 import { useUnsavedGuard } from "@/components/editor/unsavedGuard";
 import Breadcrumb from "@/components/layout/breadcrumb";
+import FolderActions from "@/components/layout/folderActions";
 import FolderList from "@/components/layout/folderList";
 import IconButton from "@/components/ui/iconButton";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -26,7 +27,9 @@ export default function MainPanel() {
     <div className="flex min-h-0 flex-1 flex-col">
       <div className="flex min-h-12 shrink-0 flex-wrap items-center gap-2 border-b border-border px-4 py-2">
         <Breadcrumb />
-        <div className="ml-auto flex items-center gap-2" />
+        <div className="ml-auto flex items-center gap-2">
+          <FolderActions />
+        </div>
       </div>
 
       <div className="flex min-h-0 flex-1">
