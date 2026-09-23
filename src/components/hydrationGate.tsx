@@ -14,7 +14,7 @@ export default function HydrationGate({
     return (
       <div
         role="status"
-        className="flex flex-1 items-center justify-center text-sm text-neutral-500"
+        className="flex flex-1 items-center justify-center text-sm text-muted"
       >
         Loading workspace…
       </div>
